@@ -1,6 +1,6 @@
 var coord, coordCible;
 
-functionitPlatean (n){
+function initPlateau(n){
     var Jeu = document.getElementById("jeu");
     Jeu.innerHTML = "<div id=\"grid\"></div>";
     var Grid = document.getElementById("grid");
