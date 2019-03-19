@@ -3,18 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Jeu</title>
+    <title>Jeu du touché-coulé</title>
     <link rel="shortcut icon" href="img/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
 </head>
 
-<body>
-    <section>
-        <img src="img/logofin.png" alt="Logo du jeu" /></a>
+<body onload="initJeu(5);">
+    <header>
+        <img src="img/logofin.png" alt="Logo du jeu" />
         <h2>Jeu du touché-coulé</h2>
+    </header>
+    <section>
         <article>
+            <!--
             <h3>Règles du jeu</h3>
             <p>Un plateau de jeu va se génerer, et dans ce dernier, il y aura un objet caché que vous devrez trouver !
                 En utilisant le principe de la bataille navale, vous allez pouvoir cliquer sur les cases du tableau pour
@@ -29,14 +32,20 @@
                     Bravo à vous ! 🎉 </li>
             </ul>
             <p>Maintenant que vous connaissez les règles du jeu, amusez-vous bien !</p>
+        -->
         </article>
         <article>
-            <button class="button" onclick="initPlateau(5);">Générer</button>
-            <div id="jeu"></div>
+            <div id="zoneJeu"></div>
+            <div class="controls">
+                <button class="button" onclick="initJeu(5);">Grille 5x5</button>
+                <button class="button" onclick="initJeu(8);">Grille 8x8</button>
+            </div>
         </article>
-        <footer>
-            Site réalisé dans le cadre du cours d'IHM de M.Brutus
-        </footer>
+    </section>
+    <footer>
+        &copy; Nathan Bonnemains, Quentin Carré, Mathilde Goré - Site réalisé dans le cadre du cours d'IHM de
+        M.Brutus
+    </footer>
 
 </body>
 

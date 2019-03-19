@@ -1,74 +1,85 @@
-var coord, coordCible;
+var x, y, xCible, yCible, coord, coordCible, dim;
 
-function initPlateau(n) {
-    var Jeu = document.getElementById("jeu");
-    Jeu.innerHTML = "<div id=\"grid\"></div>";
-    var Grid = document.getElementById("grid");
+initJeu(5);
 
-    var xCible = getRandomInt(1, n);
-    var yCible = getRandomInt(1, n);
-    coordCible = xCible + "x" + yCible;
+function initJeu(taille) {
 
-    for (var i = 0; i <= n - 1; i++) {
-        for (var j = 0; j <= n - 1; j++) {
-            var x = (i + 1);
-            var y = (j + 1);
-            coord = x + "x" + y;
+    const zoneJeu = document.getElementById("zoneJeu");
+    zoneJeu.innerHTML = "<div id=\"grille\"></div>";
+    const grille = document.getElementById("grille");
 
-            coordonnees = coord + "-" + coordCible
+    cibleAleatoire(taille);
+    initGrille(taille, zoneJeu, grille);
 
-            Grid.innerHTML += "<button id=" + coord + " value=" + coord + " onclick=\"test('" + coordonnees + "');\"></button>";
-        }
-    }
-    var taille = n * 40 + n * 1;
-    Jeu.style.width = taille + "px";
-    Jeu.style.height = taille + "px";
 }
 
-function test(coordonnees){
+function initGrille(taille, zoneJeu, grille) {
+
+    let i, j;
+
+
+    /* On génère la grille */
+    for (i = 0; i <= taille - 1; i++) {
+        for (j = 0; j <= taille - 1; j++) {
+            x = (i + 1);
+            y = (j + 1);
+            coord = x + "x" + y;
+            coordonnees = coord + "-" + coordCible
+
+            grille.innerHTML += "<div id=" + coord + " class=\"case\" value=" + coord + " onclick=\"test('" + coordonnees + "');\"></div>";
+        }
+    }
+
+    /* Dimensions de la zone de jeu */
+    dim = taille * 40 + taille * 1;
+    zoneJeu.style.width = dim + "px";
+    zoneJeu.style.height = dim + "px";
+}
+
+function test(coordonnees) {
     console.log(coordonnees);
 }
 
-function getRandomInt(min, max) 
-{
+function cibleAleatoire(taille) {
+    xCible = getRandomInt(1, taille);
+    yCible = getRandomInt(1, taille);
+    coordCible = xCible + "x" + yCible;
+}
+
+function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function verifier(coord, coordCible) 
-{
-    console.log(coord);
-    var x = coord.charAt(0);
-    var y = coord.charAt(2);
+function verifier(coordonnees) {
+    console.log(coordonnees);
 
-    var xCible = coordCible.charAt(0);
-    var yCible = coordCible.charAt(2);
+    var x = coordonnees.charAt(0);
+    var y = coordonnees.charAt(2);
+    var xCible = coordonnees.charAt(4);
+    var yCible = coordonnees.charAt(6);
 
     var distance;
-    if (x == xCible && y == yCible)
-    {
-        distance = -1;
+
+    if (x == xCible && y == yCible) {
+        distance = 0;
         console.log("Touché");
     }
-    else 
-    {
-        distance = getCalculIndication();
+    else {
+        distance = getCalculIndication(x, y, xCible, yCible);
     }
+    console.log(distance);
     return distance;
 }
 
-function gagner()
-{
-    if(Verification()==-1)
-    {
+function gagner(coord, coordCible) {
+    if (verifier(coord, coordCible) == -1) {
         Alert("gagner !");
     }
-    else 
-    {
-        Alert("La distance est de : "+getCalculIndication());
+    else {
+        Alert("La distance est de : " + verifier(coord, coordCible));
     }
 }
 
-function getCalculIndication()
-{
-    return (Math.abs(Math.abs(xOrdinateur-getCoordonneeUtilisateurX())-1)-(Math.abs(yOrdinateur-getCoordonneeUtilisateurY())-1));
+function getCalculIndication(x, y, xCible, yCible) {
+    return (Math.abs(Math.abs(xCible - x - 1) - (Math.abs(yCible - y))));
 }
