@@ -1,6 +1,6 @@
 var coord, coordCible;
 
-functionitPlatean (n){
+function initPlateau(n) {
     var Jeu = document.getElementById("jeu");
     Jeu.innerHTML = "<div id=\"grid\"></div>";
     var Grid = document.getElementById("grid");
@@ -14,7 +14,10 @@ functionitPlatean (n){
             var x = (i + 1);
             var y = (j + 1);
             coord = x + "x" + y;
-            Grid.innerHTML += "<button id=" + coord + " value=" + coord + " onclick=\"test('" + coord + ", " + coordCible + "');\"></button>";
+
+            coordonnees = coord + "-" + coordCible
+
+            Grid.innerHTML += "<button id=" + coord + " value=" + coord + " onclick=\"test('" + coordonnees + "');\"></button>";
         }
     }
     var taille = n * 40 + n * 1;
@@ -22,8 +25,8 @@ functionitPlatean (n){
     Jeu.style.height = taille + "px";
 }
 
-function test(coord, coordCible){
-    console.log(coord, coordCible);
+function test(coordonnees){
+    console.log(coordonnees);
 }
 
 function getRandomInt(min, max) 
@@ -37,13 +40,14 @@ function verifier(coord, coordCible)
     var x = coord.charAt(0);
     var y = coord.charAt(2);
 
-    var xCible = coord.charAt(0);
-    var yCible = coord.charAt(2);
+    var xCible = coordCible.charAt(0);
+    var yCible = coordCible.charAt(2);
 
     var distance;
     if (x == xCible && y == yCible)
     {
         distance = -1;
+        console.log("Touché");
     }
     else 
     {
