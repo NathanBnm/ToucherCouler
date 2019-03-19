@@ -12,6 +12,10 @@
     grid-column: 1 / 1;
 }
 
+.button 
+{
+    /**align  : center;**/
+}
 #grid > *:first-child {
     grid-row: 1 / 1;
     grid-column: 1 / 1;
@@ -21,3 +25,38 @@
     background: rgba(0,0,0,0.1);
     border: 1px white solid;
   }
+
+  #grid > *:hover {
+    background: red;
+  }
+
+  body {
+    font-family : 'Montserrat', sans-serif;
+    background-image: url('img/purty_wood.png');
+    background-repeat : repeat;
+}
+h2{
+    text-align : center;
+}
+
+img{
+    display: block;
+    height: 36px;
+    width : 36px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside{
+    background-color: #ffffffee;
+    border-radius: 5px;
+    box-sizing : border-box;
+}
+
+footer{
+    background-color: #e94d4de3;
+    border-radius: 5px;
+    opacity : 20%;
+    box-sizing : border-box;
+    color : #533838;
+}
