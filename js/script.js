@@ -1,12 +1,11 @@
 var x, y, xCible, yCible, coord, coordCible, dim;
 
-initJeu(5);
-
 function initJeu(taille) {
 
-    const zoneJeu = document.getElementById("zoneJeu");
+    zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
-    const grille = document.getElementById("grille");
+    grille = document.getElementById("grille");
+    dialog = document.getElementById("dialog");
 
     cibleAleatoire(taille);
     initGrille(taille, zoneJeu, grille);
@@ -17,7 +16,6 @@ function initGrille(taille, zoneJeu, grille) {
 
     let i, j;
 
-
     /* On génère la grille */
     for (i = 0; i <= taille - 1; i++) {
         for (j = 0; j <= taille - 1; j++) {
@@ -26,18 +24,14 @@ function initGrille(taille, zoneJeu, grille) {
             coord = x + "x" + y;
             coordonnees = coord + "-" + coordCible
 
-            grille.innerHTML += "<div id=" + coord + " class=\"case\" value=" + coord + " onclick=\"test('" + coordonnees + "');\"></div>";
+            grille.innerHTML += "<a id=" + coord + " class=\"case\" value=" + coord + " onclick=\"verifierGagnant('" + coordonnees + "');\"></a>";
         }
     }
 
     /* Dimensions de la zone de jeu */
-    dim = taille * 40 + taille * 1;
+    dim = taille * 30 + taille * 1;
     zoneJeu.style.width = dim + "px";
     zoneJeu.style.height = dim + "px";
-}
-
-function test(coordonnees) {
-    console.log(coordonnees);
 }
 
 function cibleAleatoire(taille) {
@@ -50,36 +44,43 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function verifier(coordonnees) {
-    console.log(coordonnees);
+function verifier(x, y, xCible, yCible) {
+    var distance;
 
+    if (x == xCible && y == yCible) {
+        distance = 0;
+    }
+    else {
+        distance = getCalculIndication(x, y, xCible, yCible);
+    }
+    return distance;
+}
+
+function verifierGagnant(coordonnees) {
     var x = coordonnees.charAt(0);
     var y = coordonnees.charAt(2);
     var xCible = coordonnees.charAt(4);
     var yCible = coordonnees.charAt(6);
 
-    var distance;
+    var coord = x + "x" + y;
+    var cible = document.getElementById(coord);
+    cible.classList.add("active");
 
-    if (x == xCible && y == yCible) {
-        distance = 0;
-        console.log("Touché");
-    }
-    else {
-        distance = getCalculIndication(x, y, xCible, yCible);
-    }
-    console.log(distance);
-    return distance;
-}
-
-function gagner(coord, coordCible) {
-    if (verifier(coord, coordCible) == -1) {
-        Alert("gagner !");
-    }
-    else {
-        Alert("La distance est de : " + verifier(coord, coordCible));
+    distance = verifier(x, y, xCible, yCible);
+    if(distance == 0){
+        dialog.innerHTML = "<p>Touché !</p>";
+        //Fin de partie
+    } else if (distance == 1){
+        dialog.innerHTML = "<p>Sauve qui peut ! Vous êtes à " + distance + " case du sous-marin !</p>";
+    } else if (distance <= 8 && distance != 1){
+        dialog.innerHTML = "<p>Sauve qui peut ! Vous êtes à " + distance + " cases du sous-marin !</p>";
+    } else if (distance > 8){
+        dialog.innerHTML = "<p>A l'eau !</p>";
+    } else {
+        //Erreur
     }
 }
 
 function getCalculIndication(x, y, xCible, yCible) {
-    return (Math.abs(Math.abs(xCible - x - 1) - (Math.abs(yCible - y))));
+    return (Math.abs(Math.abs(xCible - x) + (Math.abs(yCible - y))));
 }

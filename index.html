@@ -10,7 +10,7 @@
     <script src="js/script.js"></script>
 </head>
 
-<body onload="initJeu(5);">
+<body onload="initJeu(8);">
     <header>
         <img src="img/logofin.png" alt="Logo du jeu" />
         <h2>Jeu du touché-coulé</h2>
@@ -37,8 +37,10 @@
         <article>
             <div id="zoneJeu"></div>
             <div class="controls">
-                <button class="button" onclick="initJeu(5);">Grille 5x5</button>
+                <div id="dialog"></div>
                 <button class="button" onclick="initJeu(8);">Grille 8x8</button>
+                <button class="button" onclick="initJeu(10);">Grille 10x10</button>
+                <button class="button" onclick="initJeu(15);">Grille 15x15</button>
             </div>
         </article>
     </section>
