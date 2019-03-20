@@ -12,12 +12,10 @@
 
 <body onload="initJeu(8);">
     <header>
-        <img src="img/logofin.png" alt="Logo du jeu" />
         <h2>Jeu du touché-coulé</h2>
     </header>
-    <section>
-        <article>
-            <!--
+
+    <!--
             <h3>Règles du jeu</h3>
             <p>Un plateau de jeu va se génerer, et dans ce dernier, il y aura un objet caché que vous devrez trouver !
                 En utilisant le principe de la bataille navale, vous allez pouvoir cliquer sur les cases du tableau pour
@@ -33,17 +31,20 @@
             </ul>
             <p>Maintenant que vous connaissez les règles du jeu, amusez-vous bien !</p>
         -->
-        </article>
-        <article>
+
+    <div class="container">
+        <div class="jeu">
             <div id="zoneJeu"></div>
-            <div class="controls">
-                <div id="dialog"></div>
+        </div>
+        <div class="controls">
+            <div id="dialog"></div>
+            <div class="buttons">
                 <button class="button" onclick="initJeu(8);">Grille 8x8</button>
-                <button class="button" onclick="initJeu(10);">Grille 10x10</button>
-                <button class="button" onclick="initJeu(15);">Grille 15x15</button>
+                <button class="button" onclick="initJeu(10);" disabled>Grille 10x10</button>
+                <button class="button" onclick="initJeu(15);" disabled>Grille 15x15</button>
             </div>
-        </article>
-    </section>
+        </div>
+    </div>
     <footer>
         &copy; Nathan Bonnemains, Quentin Carré, Mathilde Goré - Site réalisé dans le cadre du cours d'IHM de
         M.Brutus

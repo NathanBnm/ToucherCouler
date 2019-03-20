@@ -29,7 +29,7 @@ function initGrille(taille, zoneJeu, grille) {
     }
 
     /* Dimensions de la zone de jeu */
-    dim = taille * 30 + taille * 1;
+    dim = taille * 28 + taille * 1;
     zoneJeu.style.width = dim + "px";
     zoneJeu.style.height = dim + "px";
 }
