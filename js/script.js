@@ -1,3 +1,7 @@
+//Gérer les erreurs
+//Empêcher la génération d'autres grilles
+//Difficulté élevée (déplacement)
+
 var x, y, xCible, yCible, coord, coordCible, dim;
 
 function initJeu(taille) {
@@ -5,14 +9,14 @@ function initJeu(taille) {
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
-    dialog = document.getElementById("dialog");
+    info = document.getElementById("info");
 
     cibleAleatoire(taille);
-    initGrille(taille, zoneJeu, grille);
-
+    initGrille(taille);
+    info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
 }
 
-function initGrille(taille, zoneJeu, grille) {
+function initGrille(taille) {
 
     let i, j;
 
@@ -21,30 +25,30 @@ function initGrille(taille, zoneJeu, grille) {
         for (j = 0; j <= taille - 1; j++) {
             x = (i + 1);
             y = (j + 1);
-            coord = x + "x" + y;
-            coordonnees = coord + "-" + coordCible
 
-            grille.innerHTML += "<a id=" + coord + " class=\"case\" value=" + coord + " onclick=\"verifierGagnant('" + coordonnees + "');\"></a>";
+            coord = x + "x" + y;
+
+            grille.innerHTML += "<a id=" + coord + " class=\"case\" onclick=\"verifierCoord(" + x + "," + y + ");\"></a>";
         }
     }
 
     /* Dimensions de la zone de jeu */
-    dim = taille * 28 + taille * 1;
+    dim = taille * 30 + taille * 1;
     zoneJeu.style.width = dim + "px";
     zoneJeu.style.height = dim + "px";
 }
 
+
 function cibleAleatoire(taille) {
     xCible = getRandomInt(1, taille);
     yCible = getRandomInt(1, taille);
-    coordCible = xCible + "x" + yCible;
 }
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function verifier(x, y, xCible, yCible) {
+function verifierDistance(x, y, xCible, yCible) {
     var distance;
 
     if (x == xCible && y == yCible) {
@@ -56,31 +60,38 @@ function verifier(x, y, xCible, yCible) {
     return distance;
 }
 
-function verifierGagnant(coordonnees) {
-    var x = coordonnees.charAt(0);
-    var y = coordonnees.charAt(2);
-    var xCible = coordonnees.charAt(4);
-    var yCible = coordonnees.charAt(6);
+function getCalculIndication(x, y, xCible, yCible) {
+    return (Math.abs(Math.abs(xCible - x) + (Math.abs(yCible - y))));
+}
 
-    var coord = x + "x" + y;
+function verifierCoord(x, y) {
+    coord = x + "x" + y;
+
     var cible = document.getElementById(coord);
-    cible.classList.add("active");
 
-    distance = verifier(x, y, xCible, yCible);
-    if(distance == 0){
-        dialog.innerHTML = "<p>Touché !</p>";
+    distance = verifierDistance(x, y, xCible, yCible);
+
+    if (distance == 0) {
+        info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
+        cible.classList.add("active-red");
+        if (tips.checked == true) {
+            cible.innerHTML = "<span class=\"number\">X</span>";
+        }
         //Fin de partie
-    } else if (distance == 1){
-        dialog.innerHTML = "<p>Sauve qui peut ! Vous êtes à " + distance + " case du sous-marin !</p>";
-    } else if (distance <= 8 && distance != 1){
-        dialog.innerHTML = "<p>Sauve qui peut ! Vous êtes à " + distance + " cases du sous-marin !</p>";
-    } else if (distance > 8){
-        dialog.innerHTML = "<p>A l'eau !</p>";
+    } else if (distance <= 8) {
+        if (distance == 1) {
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
+        } else {
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
+        }
+        cible.classList.add("active-orange");
+        if (tips.checked == true) {
+            cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
+        }
+    } else if (distance > 8) {
+        info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
+        cible.classList.add("active-blue");
     } else {
         //Erreur
     }
-}
-
-function getCalculIndication(x, y, xCible, yCible) {
-    return (Math.abs(Math.abs(xCible - x) + (Math.abs(yCible - y))));
 }

@@ -12,42 +12,52 @@
 
 <body onload="initJeu(8);">
     <header>
-        <h2>Jeu du touché-coulé</h2>
+        <h2>Chasse au sous-marin</h2>
     </header>
-
-    <!--
+    <div class="container">
+        <section class="regles">
             <h3>Règles du jeu</h3>
-            <p>Un plateau de jeu va se génerer, et dans ce dernier, il y aura un objet caché que vous devrez trouver !
+            <p>Un plateau de jeu va se génerer dans lequel vous devrez trouver un sous-marin ennemi !
                 En utilisant le principe de la bataille navale, vous allez pouvoir cliquer sur les cases du tableau pour
-                tenter de retrouver l'objet !
-                En fonction, de là où vous allez cliquer, trois messages pouront s'afficher, les voici :
+                tenter de couler le sous-marin !
+                En fonction de là où vous allez cliquer, trois messages pouront s'afficher :
             </p>
             <ul>
-                <li>Si vous êtes > 6 cases aux alentours de l'objet à trouver, un message affichera "A l'eau !".</li>
-                <li>Si vous êtes entre 1 et 5 cases de l'objet à trouver, un message affichera "Sauve qui peut !" ainsi
-                    que le nombre de cases qui vous sépare de l'objet à trouver.</li>
-                <li>Si vous arriver à trouver l'objet, un message affichera "Coulé !", ainsi vous aurez gagné la partie.
-                    Bravo à vous ! 🎉 </li>
+                <li><span class="bold">A l'eau !</span> Vous vous trouvez dans les 8 cases aux alentours du sous-marin.
+                </li>
+                <li><span class="bold">Sauve qui peut !</span> Vous vous rapprochez du sous-marin, entre 1 et 8 cases.
+                    <br> Le nombre de cases qui vous sépare du sous-marin est indiqué.</li>
+                <li><span class="bold">Touché !</span> Vous avez coulé le sous marin, félicitations vous avez gagné la
+                    partie ! 🎉 </li>
             </ul>
             <p>Maintenant que vous connaissez les règles du jeu, amusez-vous bien !</p>
-        -->
-
-    <div class="container">
-        <div class="jeu">
-            <div id="zoneJeu"></div>
-        </div>
-        <div class="controls">
-            <div id="dialog"></div>
-            <div class="buttons">
-                <button class="button" onclick="initJeu(8);">Grille 8x8</button>
-                <button class="button" onclick="initJeu(10);" disabled>Grille 10x10</button>
-                <button class="button" onclick="initJeu(15);" disabled>Grille 15x15</button>
+        </section>
+        <section class="plateau">
+            <div id="zoneJeu">
+                <!-- Ici la grille de jeu -->
             </div>
-        </div>
+        </section>
+        <section class="commandes">
+            <div id="info">
+                <!-- Ici les résultat de chaque tir -->
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="button" onclick="initJeu(8);">Facile</button>
+                    <button class="button" onclick="initJeu(10);">Moyen</button>
+                    <button class="button" onclick="initJeu(15);">Difficile</button>
+                </div>
+                <br>
+                <input id="tips" name="tips" type="checkbox">
+                <label for="tips">Afficher les indications de distance sur la grille</label>
+                <br>
+                <small>Choisir une nouvelle grille réinitialisera la partie</small>
+            </div>
+        </section>
     </div>
     <footer>
         &copy; Nathan Bonnemains, Quentin Carré, Mathilde Goré - Site réalisé dans le cadre du cours d'IHM de
-        M.Brutus
+        M. Brutus
     </footer>
 
 </body>
