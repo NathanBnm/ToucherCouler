@@ -123,32 +123,32 @@ function victoire() {
 }
 
 function SurDeVous(){
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
           cancelButton: 'btn btn-danger'
         },
-        buttonsStyling: false,
+        buttonsStyling: true,
       })
       
-      swalWithBootstrapButtons.fire({
+      swalButtons.fire({
         title: 'Êtes vous sûr de vous ?',
         text: "Si vous appuyez, la partie va redémarrer !",
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Oui je suis sûr !',
         cancelButtonText: 'Finalement, non !',
-        reverseButtons: true
+        reverseButtons: true,
       }).then((result) => {
         if (result.value) {
-          swalWithBootstrapButtons.fire(
+          swalButtons.fire(
             'Opération effectuée !'
           )
         } else if (
           // Read more about handling dismissals
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire(
+          swalButtons.fire(
             'Très bien, on ne change rien !'
           )
         }
