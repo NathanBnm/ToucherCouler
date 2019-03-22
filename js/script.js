@@ -2,6 +2,7 @@
 //Empêcher la génération d'autres grilles
 //Difficulté élevée (déplacement)
 
+
 var x, y, xCible, yCible, coord, coordCible, dim;
 
 function initJeu(taille, niveau) {
