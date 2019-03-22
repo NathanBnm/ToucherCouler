@@ -77,10 +77,10 @@ function verifierCoord(x, y) {
     if (distance == 0) {
         info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
-        if (tips.checked == true) {
+        if (tips.checked) {
             cible.innerHTML = "<span class=\"number\">X</span>";
         }
-        //Fin de partie
+        victoire();
     } else if (distance <= 8) {
         if(niveau==1)
         {
@@ -114,7 +114,7 @@ function verifierCoord(x, y) {
             }
         }
         cible.classList.add("active-orange");
-        if (tips.checked == true) {
+        if (tips.checked) {
             cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
         }
     } else if (distance > 8) {
@@ -138,6 +138,18 @@ function verifierCoord(x, y) {
         //Erreur
     }
 
-    console.log(xCible,yCible);
+}
 
+function victoire(){
+    Swal.fire({
+        title: 'Bravo ! Vous avez gagné ! 🎉',
+        animation: false,
+        customClass: {
+          popup: 'animated jello'
+        },
+        backdrop: `
+            rgba(0,0,123,0.4)
+            url("/img/confettis.gif")
+        `
+      })
 }
