@@ -40,7 +40,7 @@ footer {
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
-    background-color: rgba(233, 77, 77, .8);
+    background-color: rgba(233, 120, 120, 1);
     color: #fff;
     font-size: .75rem;
     text-align: center;
@@ -101,6 +101,18 @@ footer {
 
 .button {
     margin: 0 2px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: unset;
+    background-color: rgba(233, 120, 120, 1);
+    border: none;
+    cursor: pointer;
+    color : #fff;
+    transition: ease 300ms;
+}
+
+.button:hover {
+   background-color: rgb(233, 77, 77);
 }
 
 #zoneJeu {
