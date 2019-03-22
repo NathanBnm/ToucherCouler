@@ -145,7 +145,7 @@ function victoire(){
         title: 'Bravo ! Vous avez gagné ! 🎉',
         animation: false,
         customClass: {
-          popup: 'animated jello'
+          popup: 'animated tada'
         },
         backdrop: `
             rgba(0,0,123,0.4)
