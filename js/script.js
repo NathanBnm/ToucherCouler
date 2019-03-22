@@ -9,7 +9,6 @@ function initJeu(t, n) {
     cpt = 0;
     niveau = n;
     taille = t;
-
     cibleAleatoire();
     if(taille != 8 || taille != 10 || taille != 15) {
         initGrille();
@@ -22,7 +21,6 @@ function initJeu(t, n) {
 function initGrille() {
 
     let i, j;
-
     /* On génère la grille */
     for (i = 0; i <= taille - 1; i++) {
         for (j = 0; j <= taille - 1; j++) {
