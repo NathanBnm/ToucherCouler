@@ -2,9 +2,9 @@
 //Empêcher la génération d'autres grilles
 //Difficulté élevée (déplacement)
 
-var x, y, xCible, yCible, coord, coordCible, dim, niveau;
+var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille;
 
-function initJeu(taille, n) {
+function initJeu(t, n) {
 
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
@@ -12,13 +12,14 @@ function initJeu(taille, n) {
     info = document.getElementById("info");
 
     niveau = n;
+    taille = t;
 
-    cibleAleatoire(taille);
-    initGrille(taille);
+    cibleAleatoire();
+    initGrille();
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
 }
 
-function initGrille(taille) {
+function initGrille() {
 
     let i, j;
 
@@ -41,7 +42,7 @@ function initGrille(taille) {
 }
 
 
-function cibleAleatoire(taille) {
+function cibleAleatoire() {
     xCible = getRandomInt(1, taille);
     yCible = getRandomInt(1, taille);
 }
@@ -72,7 +73,7 @@ function verifierCoord(x, y) {
     var cible = document.getElementById(coord);
 
     distance = verifierDistance(x, y, xCible, yCible);
-
+    
     if (distance == 0) {
         info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
@@ -81,19 +82,62 @@ function verifierCoord(x, y) {
         }
         //Fin de partie
     } else if (distance <= 8) {
+        if(niveau==1)
+        {
+            var stockX=xCible;
+            var stockY=yCible;
+            do
+            {
+                cibleAleatoire(taille);
+            }
+            while (getCalculIndication(stockX, stockY, xCible, yCible)>=8)
+            
+        }
         if (distance == 1) {
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
+            tips.setAttribute("disabled");
+            if(niveau==1)
+            {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
+            }
+            else
+            {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
+            }
         } else {
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
+            if(niveau==1)
+            {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
+            }
+            else
+            {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
+            }
         }
         cible.classList.add("active-orange");
         if (tips.checked == true) {
             cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
         }
     } else if (distance > 8) {
-        info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
+        if(niveau==1)
+        {
+            var stockX=xCible;
+            var stockY=yCible;
+            do
+            {
+                cibleAleatoire(taille);
+            }
+            while (getCalculIndication(stockX, stockY, xCible, yCible)>=8)
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !";
+        }
+        else
+        {
+            info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
+        }
         cible.classList.add("active-blue");
     } else {
         //Erreur
     }
+
+    console.log(xCible,yCible);
+
 }
