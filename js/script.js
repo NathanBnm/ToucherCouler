@@ -12,13 +12,13 @@ function initJeu(t, n) {
 
     cibleAleatoire();
 
-    if(taille != 8 || taille != 10 || taille != 15) {
+    if (taille == 8 || taille == 10 || taille == 15) {
         initGrille();
     } else {
-        //Erreur
+        erreur();
     }
 
-    if(niveau == 1) {
+    if (niveau == 1) {
         tips.setAttribute("disabled", true);
         tips.checked = false;
     } else {
@@ -107,7 +107,7 @@ function verifierCoord(x, y) {
         info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
         cible.classList.add("active-blue");
     } else {
-        //Erreur
+        erreur();
     }
 
     cpt++;
@@ -128,29 +128,43 @@ function victoire() {
         text: 'Vous avez gagné en ' + (cpt + 1) + ' coup(s) ! 🎉',
         animation: false,
         customClass: {
-          popup: 'animated tada'
+            popup: 'animated tada'
         },
         backdrop: `
             rgba(0,0,123,0.4)
             url("/img/confettis.gif")
         `
-      }).then((result) => {
+    }).then((result) => {
         if (result.value) {
             resetGrille();
         }
     })
 }
 
-function surDeVous(){
+function erreur() {
+    Swal.fire({
+        title: 'Erreur !',
+        text: 'Une erreur est survenue',
+        backdrop: `
+            rgba(0,0,123,0.4)
+        `
+    }).then((result) => {
+        if (result.value) {
+            window.location.reload();
+        }
+    })
+}
+
+function surDeVous() {
     const swalButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
         buttonsStyling: true,
-      })
-      
-      swalButtons.fire({
+    })
+
+    swalButtons.fire({
         title: 'Êtes vous sûr de vous ?',
         text: "Si vous appuyez, la partie va redémarrer !",
         type: 'warning',
@@ -158,15 +172,15 @@ function surDeVous(){
         confirmButtonText: 'Oui je suis sûr !',
         cancelButtonText: 'Finalement, non !',
         reverseButtons: true,
-      }).then((result) => {
+    }).then((result) => {
         if (result.value) {
             resetGrille();
         } else {
-            if(tips.checked) {
+            if (tips.checked) {
                 tips.checked = false;
             } else {
                 tips.checked = true;
             }
         }
-      })
+    })
 }
