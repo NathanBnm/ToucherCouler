@@ -41,23 +41,38 @@
             </div>
         </section>
         <section class="commandes">
-            <div id="info">
-                <!-- Ici les résultat de chaque tir -->
-            </div>
-            <div class="buttons">
-                <div>
-                    <button class="button" onclick="initJeu(8,0);">Facile</button>
-                    <button class="button" onclick="initJeu(10,0);">Moyen</button>
-                    <button class="button" onclick="initJeu(15,0);">Difficile</button>
-                    <button class="button" onclick="initJeu(15,1)">Très Difficile</button>
+            <div class="align-left">
+                <div id="info">
+                    <!-- Ici les résultat de chaque tir -->
                 </div>
-                <br>
-                <input id="tips" name="tips" type="checkbox" onchange="surDeVous();">
-                <label for="tips">Afficher les indications de distance sur la grille</label>
-                <br><br>
-                <small>Choisir une nouvelle grille réinitialisera la partie</small>
-                <br><br>
-                <small>En mode très difficile le sous-marin peut se déplacer</small>
+                <div class="buttons">
+                    <div>
+                        <button class="button" onclick="initJeu(8,0);">Facile</button>
+                        <button class="button" onclick="initJeu(10,0);">Moyen</button>
+                        <button class="button" onclick="initJeu(15,0);">Difficile</button>
+                        <button class="button" onclick="initJeu(15,1)">Très Difficile</button>
+                    </div>
+                    <br>
+                    <label class="switch">
+                        <input id="tips" name="tips" type="checkbox" onchange="surDeVous();">
+                        <span class="slider round"></span>
+                    </label>
+                    <label for="tips">
+                        <small>Afficher les indications de distance sur la grille</small>
+                    </label>
+                    <br>
+                    <label class="switch">
+                        <input id="sound" name="sound" type="checkbox" onchange="" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <label for="sound">
+                        <small>Activer les effets sonores</small>
+                    </label>
+                    <br><br>
+                    <small>Choisir une nouvelle grille réinitialisera la partie.</small>
+                    <br>
+                    <small>En mode très difficile le sous-marin peut se déplacer.</small>
+                </div>
             </div>
         </section>
     </div>

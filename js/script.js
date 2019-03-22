@@ -87,13 +87,17 @@ function verifierCoord(x, y) {
     distance = verifierDistance(x, y, xCible, yCible);
 
     if (distance == 0) {
-        bomb();
+        if(sound.checked) {
+            bomb();
+        }
         info.innerHTML = "<span class=\"bold\">Touché-Coulé !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
         cible.innerHTML = "<span class=\"number\">X</span>";
         victoire();
     } else if (distance <= 8) {
-        alarm();
+        if(sound.checked) {
+            alarm();
+        }
         if (niveau == 1) {
             bougerSousMarin();
             info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le sous-marin s'est déplacé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
@@ -106,7 +110,9 @@ function verifierCoord(x, y) {
         }
         cible.classList.add("active-orange");
     } else if (distance > 8) {
-        splash();
+        if(sound.checked) {
+            splash();
+        }
         info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
         cible.classList.add("active-blue");
     } else {
