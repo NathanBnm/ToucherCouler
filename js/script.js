@@ -1,4 +1,4 @@
-var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille;
+var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille, cpt;
 
 function initJeu(t, n) {
     zoneJeu = document.getElementById("zoneJeu");
@@ -6,6 +6,7 @@ function initJeu(t, n) {
     grille = document.getElementById("grille");
     info = document.getElementById("info");
 
+    cpt = 0;
     niveau = n;
     taille = t;
 
@@ -96,7 +97,7 @@ function verifierCoord(x, y) {
     } else {
         //Erreur
     }
-
+    cpt++;
 }
 
 function bougerSousMarin() {
@@ -110,7 +111,7 @@ function bougerSousMarin() {
 
 function victoire() {
     Swal.fire({
-        title: 'Bravo ! Vous avez gagné ! 🎉',
+        title: 'Bravo ! <br> Vous avez gagné en '+ (cpt + 1) +' coup(s) ! 🎉',
         animation: false,
         customClass: {
           popup: 'animated tada'
