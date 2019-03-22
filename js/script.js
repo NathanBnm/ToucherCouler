@@ -73,66 +73,26 @@ function verifierCoord(x, y) {
     var cible = document.getElementById(coord);
 
     distance = verifierDistance(x, y, xCible, yCible);
-    
+
     if (distance == 0) {
         info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
-        if (tips.checked) {
-            cible.innerHTML = "<span class=\"number\">X</span>";
-        }
+        cible.innerHTML = "<span class=\"number\">X</span>";
         victoire();
     } else if (distance <= 8) {
-        if(niveau==1)
-        {
-            var stockX=xCible;
-            var stockY=yCible;
-            do
-            {
-                cibleAleatoire(taille);
-            }
-            while (getCalculIndication(stockX, stockY, xCible, yCible)>=8)
-            
+        if (niveau == 1) {
+            bougerSousMarin();
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
         }
-        if (distance == 1) {
-            tips.setAttribute("disabled");
-            if(niveau==1)
-            {
-                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
-            }
-            else
-            {
-                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
-            }
-        } else {
-            if(niveau==1)
-            {
-                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
-            }
-            else
-            {
-                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
+        else {
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case(s) du sous-marin !";
+            if (tips.checked) {
+                cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
             }
         }
         cible.classList.add("active-orange");
-        if (tips.checked) {
-            cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
-        }
     } else if (distance > 8) {
-        if(niveau==1)
-        {
-            var stockX=xCible;
-            var stockY=yCible;
-            do
-            {
-                cibleAleatoire(taille);
-            }
-            while (getCalculIndication(stockX, stockY, xCible, yCible)>=8)
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !";
-        }
-        else
-        {
-            info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
-        }
+        info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
         cible.classList.add("active-blue");
     } else {
         //Erreur
@@ -140,16 +100,25 @@ function verifierCoord(x, y) {
 
 }
 
-function victoire(){
+function bougerSousMarin() {
+    var stockX = xCible;
+    var stockY = yCible;
+    do {
+        cibleAleatoire(taille);
+    }
+    while (getCalculIndication(stockX, stockY, xCible, yCible) >= 8)
+}
+
+function victoire() {
     Swal.fire({
         title: 'Bravo ! Vous avez gagné ! 🎉',
         animation: false,
         customClass: {
-          popup: 'animated jello'
+            popup: 'animated jello'
         },
         backdrop: `
             rgba(0,0,123,0.4)
             url("/img/confettis.gif")
         `
-      })
+    })
 }
