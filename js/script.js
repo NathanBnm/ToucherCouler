@@ -111,3 +111,37 @@ function victoire(){
         `
       })
 }
+
+function SurDeVous(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false,
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Êtes vous sûr de vous ?',
+        text: "Si vous appuyez, la partie va redémarrer !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui je suis sûr !',
+        cancelButtonText: 'Finalement, non !',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          swalWithBootstrapButtons.fire(
+            'Opération effectuée !'
+          )
+        } else if (
+          // Read more about handling dismissals
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Très bien, on ne change rien !'
+          )
+        }
+      })
+
+}
