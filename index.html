@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Jeu du touché-coulé</title>
+    <title>Chasse au sous-marin</title>
     <link rel="shortcut icon" href="img/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -52,10 +52,12 @@
                     <button class="button" onclick="initJeu(15,1)">Très Difficile</button>
                 </div>
                 <br>
-                <input id="tips" name="tips" type="checkbox">
+                <input id="tips" name="tips" type="checkbox" onchange="surDeVous();">
                 <label for="tips">Afficher les indications de distance sur la grille</label>
-                <br>
+                <br><br>
                 <small>Choisir une nouvelle grille réinitialisera la partie</small>
+                <br><br>
+                <small>En mode très difficile le sous-marin peut se déplacer</small>
             </div>
         </section>
     </div>

@@ -1,4 +1,4 @@
-var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille;
+var x, y, xCible, yCible, coord, coordCible, dim, cpt, niveau, taille;
 
 function initJeu(t, n) {
     zoneJeu = document.getElementById("zoneJeu");
@@ -9,13 +9,28 @@ function initJeu(t, n) {
     niveau = n;
     taille = t;
 
+    cpt = 0;
+
     cibleAleatoire();
+
     if(taille != 8 || taille != 10 || taille != 15) {
         initGrille();
     } else {
         //Erreur
     }
+
+    if(niveau == 1) {
+        tips.setAttribute("disabled", true);
+        tips.checked = false;
+    } else {
+        tips.removeAttribute("disabled");
+    }
+
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
+}
+
+function resetGrille() {
+    initJeu(taille, niveau);
 }
 
 function initGrille() {
@@ -74,14 +89,14 @@ function verifierCoord(x, y) {
     distance = verifierDistance(x, y, xCible, yCible);
 
     if (distance == 0) {
-        info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
+        info.innerHTML = "<span class=\"bold\">Touché-Coulé !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
         cible.innerHTML = "<span class=\"number\">X</span>";
         victoire();
     } else if (distance <= 8) {
         if (niveau == 1) {
             bougerSousMarin();
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le Sous-marin a bougé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
+            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le sous-marin s'est déplacé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
         }
         else {
             info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case(s) du sous-marin !";
@@ -97,6 +112,7 @@ function verifierCoord(x, y) {
         //Erreur
     }
 
+    cpt++;
 }
 
 function bougerSousMarin() {
@@ -110,7 +126,8 @@ function bougerSousMarin() {
 
 function victoire() {
     Swal.fire({
-        title: 'Bravo ! Vous avez gagné ! 🎉',
+        title: 'Bravo !',
+        text: 'Vous avez gagné en ' + (cpt + 1) + ' coup(s) ! 🎉',
         animation: false,
         customClass: {
           popup: 'animated tada'
@@ -119,10 +136,14 @@ function victoire() {
             rgba(0,0,123,0.4)
             url("/img/confettis.gif")
         `
-      })
+      }).then((result) => {
+        if (result.value) {
+            resetGrille();
+        }
+    })
 }
 
-function SurDeVous(){
+function surDeVous(){
     const swalButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -141,16 +162,13 @@ function SurDeVous(){
         reverseButtons: true,
       }).then((result) => {
         if (result.value) {
-          swalButtons.fire(
-            'Opération effectuée !'
-          )
-        } else if (
-          // Read more about handling dismissals
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalButtons.fire(
-            'Très bien, on ne change rien !'
-          )
+            resetGrille();
+        } else {
+            if(tips.checked) {
+                tips.checked = false;
+            } else {
+                tips.checked = true;
+            }
         }
       })
 }
