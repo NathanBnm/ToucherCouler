@@ -1,11 +1,6 @@
-//Gérer les erreurs
-//Empêcher la génération d'autres grilles
-//Difficulté élevée (déplacement)
-
 var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille;
 
 function initJeu(t, n) {
-
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
@@ -15,7 +10,11 @@ function initJeu(t, n) {
     taille = t;
 
     cibleAleatoire();
-    initGrille();
+    if(taille != 8 || taille != 10 || taille != 15) {
+        initGrille();
+    } else {
+        //Erreur
+    }
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
 }
 
