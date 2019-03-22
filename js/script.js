@@ -1,20 +1,20 @@
-//Gérer les erreurs
-//Empêcher la génération d'autres grilles
-//Difficulté élevée (déplacement)
-
-var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille;
+var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille, cpt;
 
 function initJeu(t, n) {
-
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
     info = document.getElementById("info");
 
+    cpt = 0;
     niveau = n;
     taille = t;
     cibleAleatoire();
-    initGrille();
+    if(taille != 8 || taille != 10 || taille != 15) {
+        initGrille();
+    } else {
+        //Erreur
+    }
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
 }
 
@@ -95,7 +95,7 @@ function verifierCoord(x, y) {
     } else {
         //Erreur
     }
-
+    cpt++;
 }
 
 function bougerSousMarin() {
@@ -109,7 +109,7 @@ function bougerSousMarin() {
 
 function victoire() {
     Swal.fire({
-        title: 'Bravo ! Vous avez gagné ! 🎉',
+        title: 'Bravo ! <br> Vous avez gagné en '+ (cpt + 1) +' coup(s) ! 🎉',
         animation: false,
         customClass: {
           popup: 'animated tada'
@@ -122,32 +122,32 @@ function victoire() {
 }
 
 function SurDeVous(){
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
           cancelButton: 'btn btn-danger'
         },
-        buttonsStyling: false,
+        buttonsStyling: true,
       })
       
-      swalWithBootstrapButtons.fire({
+      swalButtons.fire({
         title: 'Êtes vous sûr de vous ?',
         text: "Si vous appuyez, la partie va redémarrer !",
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Oui je suis sûr !',
         cancelButtonText: 'Finalement, non !',
-        reverseButtons: true
+        reverseButtons: true,
       }).then((result) => {
         if (result.value) {
-          swalWithBootstrapButtons.fire(
+          swalButtons.fire(
             'Opération effectuée !'
           )
         } else if (
           // Read more about handling dismissals
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire(
+          swalButtons.fire(
             'Très bien, on ne change rien !'
           )
         }
