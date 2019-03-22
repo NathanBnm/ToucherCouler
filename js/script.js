@@ -97,3 +97,17 @@ function verifierCoord(x, y) {
         //Erreur
     }
 }
+
+function victoire(){
+    Swal.fire({
+        title: 'Bravo ! Vous avez gagné ! 🎉',
+        animation: false,
+        customClass: {
+          popup: 'animated jello'
+        },
+        backdrop: `
+            rgba(0,0,123,0.4)
+            url("/img/confettis.gif")
+        `
+      })
+}
