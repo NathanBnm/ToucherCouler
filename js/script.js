@@ -4,7 +4,7 @@
 
 var x, y, xCible, yCible, coord, coordCible, dim;
 
-function initJeu(taille) {
+function initJeu(taille, niveau) {
 
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
