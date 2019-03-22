@@ -13,7 +13,6 @@ function initJeu(t, n) {
 
     niveau = n;
     taille = t;
-
     cibleAleatoire();
     initGrille();
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
@@ -22,7 +21,6 @@ function initJeu(t, n) {
 function initGrille() {
 
     let i, j;
-
     /* On génère la grille */
     for (i = 0; i <= taille - 1; i++) {
         for (j = 0; j <= taille - 1; j++) {
