@@ -1,15 +1,14 @@
-var x, y, xCible, yCible, coord, coordCible, dim, cpt, niveau, taille;
 
+var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille, cpt;
 function initJeu(t, n) {
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
     info = document.getElementById("info");
 
+    cpt = 0;
     niveau = n;
     taille = t;
-
-    cpt = 0;
 
     cibleAleatoire();
 
@@ -36,7 +35,6 @@ function resetGrille() {
 function initGrille() {
 
     let i, j;
-
     /* On génère la grille */
     for (i = 0; i <= taille - 1; i++) {
         for (j = 0; j <= taille - 1; j++) {
