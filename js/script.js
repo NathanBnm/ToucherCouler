@@ -76,10 +76,10 @@ function verifierCoord(x, y) {
     if (distance == 0) {
         info.innerHTML = "<span class=\"bold\">Touché !</span> <br> Vous avez gagné la partie";
         cible.classList.add("active-red");
-        if (tips.checked == true) {
+        if (tips.checked) {
             cible.innerHTML = "<span class=\"number\">X</span>";
         }
-        //Fin de partie
+        victoire();
     } else if (distance <= 8) {
         if (distance == 1) {
             info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
@@ -87,7 +87,7 @@ function verifierCoord(x, y) {
             info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
         }
         cible.classList.add("active-orange");
-        if (tips.checked == true) {
+        if (tips.checked) {
             cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
         }
     } else if (distance > 8) {
