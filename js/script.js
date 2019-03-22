@@ -2,15 +2,16 @@
 //Empêcher la génération d'autres grilles
 //Difficulté élevée (déplacement)
 
+var x, y, xCible, yCible, coord, coordCible, dim, niveau;
 
-var x, y, xCible, yCible, coord, coordCible, dim;
-
-function initJeu(taille, niveau) {
+function initJeu(taille, n) {
 
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
     info = document.getElementById("info");
+
+    niveau = n;
 
     cibleAleatoire(taille);
     initGrille(taille);
