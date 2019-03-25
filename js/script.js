@@ -1,10 +1,11 @@
-
 var x, y, xCible, yCible, coord, coordCible, dim, niveau, taille, cpt;
+
 function initJeu(t, n) {
     zoneJeu = document.getElementById("zoneJeu");
     zoneJeu.innerHTML = "<div id=\"grille\"></div>";
     grille = document.getElementById("grille");
     info = document.getElementById("info");
+    compteur = document.getElementById("cpt");
 
     cpt = 0;
     niveau = n;
@@ -100,10 +101,18 @@ function verifierCoord(x, y) {
         }
         if (niveau == 1) {
             bougerSousMarin();
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le sous-marin s'est déplacé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
+            if(distance == 1) {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le sous-marin s'est déplacé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> case du sous-marin ! ";
+            } else {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Le sous-marin s'est déplacé !<br> Vous étiez à <span class=\"bold\">" + distance + "</span> cases du sous-marin ! ";
+            }
         }
         else {
-            info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case(s) du sous-marin !";
+            if(distance == 1) {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> case du sous-marin !";
+            } else {
+                info.innerHTML = "<span class=\"bold\">Sauve qui peut !</span> <br> Vous êtes à <span class=\"bold\">" + distance + "</span> cases du sous-marin !";
+            }
             if (tips.checked) {
                 cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
             }
@@ -120,6 +129,12 @@ function verifierCoord(x, y) {
     }
 
     cpt++;
+
+    if(cpt == 1) {
+        compteur.innerHTML = "<span class=\"bold\">" + cpt + "</span> Tir";
+    } else {
+        compteur.innerHTML = "<span class=\"bold\">" + cpt + "</span> Tirs";
+    }
 }
 
 function bougerSousMarin() {
