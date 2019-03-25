@@ -177,6 +177,10 @@ footer {
     background: rgb(233, 147, 77);
 }
 
+#grille .case.active-test {
+    background: rgb(233, 77, 220);
+}
+
 #grille .case.active-red, #grille .case.active-blue, #grille .case.active-orange {
     cursor: url(../img/target_cursor_white.cur) 12 12, crosshair;
 }
@@ -223,11 +227,11 @@ footer {
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #2980b9;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2980b9;
   }
   
   input:checked + .slider:before {

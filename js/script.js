@@ -26,6 +26,9 @@ function initJeu(t, n) {
         tips.removeAttribute("disabled");
     }
 
+    if(musicswitch.checked) {
+        music();
+    }
     info.innerHTML = "<span class=\"bold\">Prêt à tirer ?</span> <br> Trouvez le sous-marin !";
 }
 
@@ -117,12 +120,16 @@ function verifierCoord(x, y) {
                 cible.innerHTML = "<span class=\"number\">" + distance + "</span>";
             }
         }
+        cible.classList.remove('active-blue');
+        cible.classList.remove('active-test');
         cible.classList.add("active-orange");
     } else if (distance > 8) {
         if(sound.checked) {
             splash();
         }
         info.innerHTML = "<span class=\"bold\">A l'eau !</span>";
+        cible.classList.remove('active-orange');
+        cible.classList.remove('active-test');
         cible.classList.add("active-blue");
     } else {
         erreur();
@@ -143,7 +150,60 @@ function bougerSousMarin() {
     do {
         cibleAleatoire(taille);
     }
-    while (getCalculIndication(stockX, stockY, xCible, yCible) >= 8)
+    while (getCalculIndication(stockX, stockY, xCible, yCible) >= 4);
+    //while (getCalculIndication(stockX, stockY, xCible, yCible) >= 8);
+
+    let i, j;
+    //Si le sous-marin se déplace on efface les anciennes couleurs
+    for (i = 0; i <= taille - 1; i++) {
+        for (j = 0; j <= taille - 1; j++) {
+            x = (i + 1);
+            y = (j + 1);
+
+            coord = x + "x" + y;
+
+            var cible = document.getElementById(coord);
+            
+            cible.classList.remove('active-orange');
+            cible.classList.remove('active-blue');
+            cible.classList.remove('active-test');
+        }
+    }
+
+    //Prototype : Affiche la zone dans laquelle le sous-marin a pu se déplacer sauf coins
+    for (i = stockX - 4; i <= stockX + 4; i++) {
+        for (j = stockY - 4; j <= stockY + 4; j++) {
+            x = (i);
+            y = (j);
+
+            if(x > 0 && x <= 15 && y > 0 && y <= 15) {
+                coord = x + "x" + y;
+                console.log("OK", x, y);
+
+                var cible = document.getElementById(coord);
+                
+                cible.classList.add('active-test');
+            }
+        }
+    }
+}
+
+function muteunmute() {
+    var music = document.getElementById("music");
+    if(music.duration > 0 && !music.paused) {
+        if(music.muted == false) {
+            music.muted = true;
+        } else {
+            music.muted = false;
+        }
+    } else {
+        music.play();
+    }
+}
+
+function music() {
+    var music = document.getElementById("music");
+    music.play();
 }
 
 function bomb() {
@@ -165,13 +225,20 @@ function victoire() {
     Swal.fire({
         title: 'Bravo !',
         text: 'Vous avez gagné en ' + (cpt + 1) + ' coup(s) ! 🎉',
-        animation: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Super ! Nouvelle partie',
+        confirmButtonColor: '#2980b9',
+        showCloseButton: true,
+        onClose: resetGrille(),
         customClass: {
-            popup: 'animated tada'
+            popup: 'animated bounce'
         },
         backdrop: `
-            rgba(0,0,123,0.4)
-            url("/img/confettis.gif")
+            rgba(0, 0, 123, .2)
+            url("/img/confettisbis.gif")
         `
     }).then((result) => {
         if (result.value) {
@@ -185,7 +252,7 @@ function erreur() {
         title: 'Erreur !',
         text: 'Une erreur est survenue',
         backdrop: `
-            rgba(0,0,123,0.4)
+            rgba(0, 0, 123, 0.2)
         `
     }).then((result) => {
         if (result.value) {
@@ -207,9 +274,13 @@ function surDeVous() {
         title: 'Êtes vous sûr de vous ?',
         text: "Si vous appuyez, la partie va redémarrer !",
         type: 'warning',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: 'Oui je suis sûr !',
         cancelButtonText: 'Finalement, non !',
+        confirmButtonColor: '#2980b9',
         reverseButtons: true,
     }).then((result) => {
         if (result.value) {
