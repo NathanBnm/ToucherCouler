@@ -166,7 +166,7 @@ function bougerSousMarin() {
             
             cible.classList.remove('active-orange');
             cible.classList.remove('active-blue');
-            cible.classList.remove('active-test');
+            //cible.classList.remove('active-test');
         }
     }
 
@@ -182,7 +182,7 @@ function bougerSousMarin() {
 
                 var cible = document.getElementById(coord);
                 
-                cible.classList.add('active-test');
+                //cible.classList.add('active-test');
             }
         }
     }
